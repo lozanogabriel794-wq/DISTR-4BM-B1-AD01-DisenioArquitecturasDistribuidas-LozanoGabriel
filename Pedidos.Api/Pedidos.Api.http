@@ -1,0 +1,131 @@
+### ==============================================================================
+### MICROSERVICIO 3: Pedidos.Api (Puerto 5003) - CRUD COMPLETO (3 Tablas)
+### ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. TABLA CLIENTE
+# ------------------------------------------------------------------------------
+### GET Listar Clientes (200 OK)
+GET http://localhost:5003/api/Clientes
+
+### GET Cliente por ID (200 OK)
+GET http://localhost:5003/api/Clientes/1
+
+### POST Crear Cliente (201 Created)
+POST http://localhost:5003/api/Clientes
+Content-Type: application/json
+
+{
+  "nombres": "Carlos Andrade",
+  "cedula": "1722334455",
+  "correo": "carlos.andrade@correo.com"
+}
+
+### PUT Actualizar Cliente (200 OK)
+PUT http://localhost:5003/api/Clientes/3
+Content-Type: application/json
+
+{
+  "idCliente": 3,
+  "nombres": "Carlos Alberto Andrade",
+  "cedula": "1722334455",
+  "correo": "carlos.alberto@correo.com"
+}
+
+### DELETE Eliminar Cliente (200 OK)
+DELETE http://localhost:5003/api/Clientes/3
+
+# ------------------------------------------------------------------------------
+# 2. TABLA PEDIDO
+# ------------------------------------------------------------------------------
+### GET Listar Pedidos (200 OK)
+GET http://localhost:5003/api/Pedidos
+
+### GET Pedido por ID (200 OK)
+GET http://localhost:5003/api/Pedidos/1
+
+### GET Pedido Inexistente (404 Not Found)
+GET http://localhost:5003/api/Pedidos/999
+
+### POST Crear Pedido Orquestado Exitoso (201 Created)
+POST http://localhost:5003/api/Pedidos
+Content-Type: application/json
+
+{
+  "idCliente": 1,
+  "estado": "PAGADO",
+  "detalles": [
+    {
+      "idProducto": 1,
+      "cantidad": 1,
+      "precioUnitario": 750.00
+    }
+  ]
+}
+
+### POST Crear Pedido con Stock Insuficiente (400 Bad Request)
+POST http://localhost:5003/api/Pedidos
+Content-Type: application/json
+
+{
+  "idCliente": 1,
+  "estado": "PENDIENTE",
+  "detalles": [
+    {
+      "idProducto": 1,
+      "cantidad": 50000,
+      "precioUnitario": 750.00
+    }
+  ]
+}
+
+### PUT Actualizar Estado de Pedido (200 OK)
+PUT http://localhost:5003/api/Pedidos/1
+Content-Type: application/json
+
+{
+  "idPedido": 1,
+  "idCliente": 1,
+  "estado": "PROCESADO"
+}
+
+### DELETE Eliminar Pedido (200 OK)
+DELETE http://localhost:5003/api/Pedidos/2
+
+# ------------------------------------------------------------------------------
+# 3. TABLA DETALLE PEDIDO
+# ------------------------------------------------------------------------------
+### GET Listar DetallesPedido (200 OK)
+GET http://localhost:5003/api/DetallesPedido
+
+### GET DetallePedido por ID (200 OK)
+GET http://localhost:5003/api/DetallesPedido/1
+
+### GET Detalles por IdPedido (200 OK)
+GET http://localhost:5003/api/DetallesPedido/pedido/1
+
+### POST Crear DetallePedido (201 Created)
+POST http://localhost:5003/api/DetallesPedido
+Content-Type: application/json
+
+{
+  "idPedido": 1,
+  "idProducto": 2,
+  "cantidad": 3,
+  "precioUnitario": 15.50
+}
+
+### PUT Actualizar DetallePedido (200 OK)
+PUT http://localhost:5003/api/DetallesPedido/1
+Content-Type: application/json
+
+{
+  "idDetalle": 1,
+  "idPedido": 1,
+  "idProducto": 1,
+  "cantidad": 3,
+  "precioUnitario": 750.00
+}
+
+### DELETE Eliminar DetallePedido (200 OK)
+DELETE http://localhost:5003/api/DetallesPedido/2

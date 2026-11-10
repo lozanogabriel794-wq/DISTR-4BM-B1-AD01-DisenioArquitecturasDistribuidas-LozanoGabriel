@@ -1,0 +1,153 @@
+### ==============================================================================
+### MICROSERVICIO 2: Inventario.Api (Puerto 5002) - CRUD COMPLETO (4 Tablas)
+### ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. TABLA BODEGA
+# ------------------------------------------------------------------------------
+### GET Listar Bodegas (200 OK)
+GET http://localhost:5002/api/Bodegas
+
+### GET Bodega por ID (200 OK)
+GET http://localhost:5002/api/Bodegas/1
+
+### POST Crear Bodega (201 Created)
+POST http://localhost:5002/api/Bodegas
+Content-Type: application/json
+
+{
+  "nombre": "Bodega Cuenca Sur",
+  "ciudad": "Cuenca",
+  "direccion": "Av. Remigio Crespo"
+}
+
+### PUT Actualizar Bodega (200 OK)
+PUT http://localhost:5002/api/Bodegas/3
+Content-Type: application/json
+
+{
+  "idBodega": 3,
+  "nombre": "Bodega Cuenca Industrial",
+  "ciudad": "Cuenca",
+  "direccion": "Parque Industrial Cuenca"
+}
+
+### DELETE Eliminar Bodega (200 OK)
+DELETE http://localhost:5002/api/Bodegas/3
+
+# ------------------------------------------------------------------------------
+# 2. TABLA EXISTENCIA
+# ------------------------------------------------------------------------------
+### GET Listar Existencias (200 OK)
+GET http://localhost:5002/api/Existencias
+
+### GET Existencia por ID (200 OK)
+GET http://localhost:5002/api/Existencias/1
+
+### GET Existencias por Producto (200 OK)
+GET http://localhost:5002/api/Existencias/producto/1
+
+### POST Crear Existencia (201 Created)
+POST http://localhost:5002/api/Existencias
+Content-Type: application/json
+
+{
+  "idProducto": 2,
+  "idBodega": 2,
+  "stock": 30
+}
+
+### PUT Actualizar Existencia (200 OK)
+PUT http://localhost:5002/api/Existencias/4
+Content-Type: application/json
+
+{
+  "idExistencia": 4,
+  "idProducto": 2,
+  "idBodega": 2,
+  "stock": 45
+}
+
+### DELETE Eliminar Existencia (200 OK)
+DELETE http://localhost:5002/api/Existencias/4
+
+# ------------------------------------------------------------------------------
+# 3. TABLA MOVIMIENTO INVENTARIO
+# ------------------------------------------------------------------------------
+### GET Listar Movimientos (200 OK)
+GET http://localhost:5002/api/MovimientosInventario
+
+### GET Movimiento por ID (200 OK)
+GET http://localhost:5002/api/MovimientosInventario/1
+
+### POST Registrar ENTRADA válida de mercancía (201 Created)
+POST http://localhost:5002/api/MovimientosInventario
+Content-Type: application/json
+
+{
+  "idProducto": 1,
+  "idBodega": 1,
+  "tipo": "ENTRADA",
+  "cantidad": 10
+}
+
+### POST Registrar movimiento con producto inexistente - FK LÓGICA FALLIDA (400 Bad Request)
+POST http://localhost:5002/api/MovimientosInventario
+Content-Type: application/json
+
+{
+  "idProducto": 9999,
+  "idBodega": 1,
+  "tipo": "ENTRADA",
+  "cantidad": 5
+}
+
+### PUT Actualizar Movimiento (200 OK)
+PUT http://localhost:5002/api/MovimientosInventario/1
+Content-Type: application/json
+
+{
+  "idMovimiento": 1,
+  "idProducto": 1,
+  "idBodega": 1,
+  "tipo": "ENTRADA",
+  "cantidad": 10
+}
+
+### DELETE Eliminar Movimiento (200 OK)
+DELETE http://localhost:5002/api/MovimientosInventario/2
+
+# ------------------------------------------------------------------------------
+# 4. TABLA RESERVA STOCK
+# ------------------------------------------------------------------------------
+### GET Listar Reservas (200 OK)
+GET http://localhost:5002/api/ReservasStock
+
+### GET Reserva por ID (200 OK)
+GET http://localhost:5002/api/ReservasStock/1
+
+### POST Crear Reserva de Stock (201 Created)
+POST http://localhost:5002/api/ReservasStock
+Content-Type: application/json
+
+{
+  "idProducto": 1,
+  "idBodega": 1,
+  "cantidad": 1,
+  "estado": "PENDIENTE"
+}
+
+### PUT Actualizar Reserva de Stock (200 OK)
+PUT http://localhost:5002/api/ReservasStock/1
+Content-Type: application/json
+
+{
+  "idReserva": 1,
+  "idProducto": 1,
+  "idBodega": 1,
+  "cantidad": 1,
+  "estado": "CONFIRMADA"
+}
+
+### DELETE Eliminar Reserva de Stock (200 OK)
+DELETE http://localhost:5002/api/ReservasStock/2

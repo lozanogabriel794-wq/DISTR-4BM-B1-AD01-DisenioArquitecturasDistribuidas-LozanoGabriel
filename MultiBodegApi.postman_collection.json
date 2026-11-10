@@ -1,0 +1,622 @@
+{
+  "info": {
+    "name": "MultiBodegApi - Microservicios CRUD Completo (.NET 10)",
+    "description": "Colección completa de Postman con CRUD (GET, POST, PUT, DELETE) de las 10 tablas distribuidas en Catalogo.Api (5001), Inventario.Api (5002) y Pedidos.Api (5003), incluyendo pruebas de validación 200, 201, 400 (FK Física y Lógica) y 404.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Catalogo.Api (Puerto 5001)",
+      "item": [
+        {
+          "name": "1.1 Tabla Categoria (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar Categorias (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Categorias"
+              }
+            },
+            {
+              "name": "GET Categoria por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Categorias/1"
+              }
+            },
+            {
+              "name": "POST Crear Categoria (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Monitores\",\n  \"descripcion\": \"Pantallas LED, IPS y Curvas\"\n}"
+                },
+                "url": "http://localhost:5001/api/Categorias"
+              }
+            },
+            {
+              "name": "PUT Actualizar Categoria (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idCategoria\": 3,\n  \"nombre\": \"Monitores Gamer\",\n  \"descripcion\": \"Pantallas de alta tasa de refresco 144Hz+\"\n}"
+                },
+                "url": "http://localhost:5001/api/Categorias/3"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Categoria (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5001/api/Categorias/3"
+              }
+            }
+          ]
+        },
+        {
+          "name": "1.2 Tabla Marca (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar Marcas (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Marcas"
+              }
+            },
+            {
+              "name": "GET Marca por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Marcas/1"
+              }
+            },
+            {
+              "name": "POST Crear Marca (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Samsung\",\n  \"paisOrigen\": \"Corea del Sur\"\n}"
+                },
+                "url": "http://localhost:5001/api/Marcas"
+              }
+            },
+            {
+              "name": "PUT Actualizar Marca (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idMarca\": 3,\n  \"nombre\": \"Samsung Electronics\",\n  \"paisOrigen\": \"Corea del Sur\"\n}"
+                },
+                "url": "http://localhost:5001/api/Marcas/3"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Marca (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5001/api/Marcas/3"
+              }
+            }
+          ]
+        },
+        {
+          "name": "1.3 Tabla Producto (CRUD + Validaciones)",
+          "item": [
+            {
+              "name": "GET Listar Productos (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Productos"
+              }
+            },
+            {
+              "name": "GET Producto por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Productos/1"
+              }
+            },
+            {
+              "name": "GET Producto Inexistente (404 Not Found)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5001/api/Productos/999"
+              }
+            },
+            {
+              "name": "POST Crear Producto Válido (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idCategoria\": 1,\n  \"idMarca\": 1,\n  \"nombre\": \"Laptop Dell Latitude 5420\",\n  \"sku\": \"DELL-LAT-5420\",\n  \"precio\": 980.00,\n  \"estado\": true\n}"
+                },
+                "url": "http://localhost:5001/api/Productos"
+              }
+            },
+            {
+              "name": "POST Crear Producto Categoría Inválida - FK Física (400 Bad Request)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idCategoria\": 999,\n  \"idMarca\": 1,\n  \"nombre\": \"Producto Fallido\",\n  \"sku\": \"FAIL-001\",\n  \"precio\": 100.00,\n  \"estado\": true\n}"
+                },
+                "url": "http://localhost:5001/api/Productos"
+              }
+            },
+            {
+              "name": "PUT Actualizar Producto (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idProducto\": 3,\n  \"idCategoria\": 1,\n  \"idMarca\": 1,\n  \"nombre\": \"Laptop Dell Latitude 5420 Pro\",\n  \"sku\": \"DELL-LAT-5420\",\n  \"precio\": 1050.00,\n  \"estado\": true\n}"
+                },
+                "url": "http://localhost:5001/api/Productos/3"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Producto (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5001/api/Productos/3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Inventario.Api (Puerto 5002)",
+      "item": [
+        {
+          "name": "2.1 Tabla Bodega (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar Bodegas (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/Bodegas"
+              }
+            },
+            {
+              "name": "GET Bodega por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/Bodegas/1"
+              }
+            },
+            {
+              "name": "POST Crear Bodega (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Bodega Cuenca Sur\",\n  \"ciudad\": \"Cuenca\",\n  \"direccion\": \"Av. Remigio Crespo\"\n}"
+                },
+                "url": "http://localhost:5002/api/Bodegas"
+              }
+            },
+            {
+              "name": "PUT Actualizar Bodega (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idBodega\": 3,\n  \"nombre\": \"Bodega Cuenca Industrial\",\n  \"ciudad\": \"Cuenca\",\n  \"direccion\": \"Parque Industrial Cuenca\"\n}"
+                },
+                "url": "http://localhost:5002/api/Bodegas/3"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Bodega (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5002/api/Bodegas/3"
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.2 Tabla Existencia (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar Existencias (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/Existencias"
+              }
+            },
+            {
+              "name": "GET Existencia por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/Existencias/1"
+              }
+            },
+            {
+              "name": "GET Existencias por Producto (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/Existencias/producto/1"
+              }
+            },
+            {
+              "name": "POST Crear Existencia (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idProducto\": 2,\n  \"idBodega\": 2,\n  \"stock\": 30\n}"
+                },
+                "url": "http://localhost:5002/api/Existencias"
+              }
+            },
+            {
+              "name": "PUT Actualizar Existencia (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idExistencia\": 4,\n  \"idProducto\": 2,\n  \"idBodega\": 2,\n  \"stock\": 45\n}"
+                },
+                "url": "http://localhost:5002/api/Existencias/4"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Existencia (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5002/api/Existencias/4"
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.3 Tabla MovimientoInventario (CRUD + FK Lógica)",
+          "item": [
+            {
+              "name": "GET Listar Movimientos (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/MovimientosInventario"
+              }
+            },
+            {
+              "name": "GET Movimiento por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/MovimientosInventario/1"
+              }
+            },
+            {
+              "name": "POST Crear Movimiento ENTRADA Válido (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idProducto\": 1,\n  \"idBodega\": 1,\n  \"tipo\": \"ENTRADA\",\n  \"cantidad\": 5\n}"
+                },
+                "url": "http://localhost:5002/api/MovimientosInventario"
+              }
+            },
+            {
+              "name": "POST Movimiento Producto Inexistente - FK Lógica (400 Bad Request)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idProducto\": 999,\n  \"idBodega\": 1,\n  \"tipo\": \"ENTRADA\",\n  \"cantidad\": 10\n}"
+                },
+                "url": "http://localhost:5002/api/MovimientosInventario"
+              }
+            },
+            {
+              "name": "PUT Actualizar Movimiento (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idMovimiento\": 1,\n  \"idProducto\": 1,\n  \"idBodega\": 1,\n  \"tipo\": \"ENTRADA\",\n  \"cantidad\": 5\n}"
+                },
+                "url": "http://localhost:5002/api/MovimientosInventario/1"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Movimiento (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5002/api/MovimientosInventario/2"
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.4 Tabla ReservaStock (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar Reservas (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/ReservasStock"
+              }
+            },
+            {
+              "name": "GET Reserva por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5002/api/ReservasStock/1"
+              }
+            },
+            {
+              "name": "POST Crear Reserva de Stock (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idProducto\": 1,\n  \"idBodega\": 1,\n  \"cantidad\": 1,\n  \"estado\": \"PENDIENTE\"\n}"
+                },
+                "url": "http://localhost:5002/api/ReservasStock"
+              }
+            },
+            {
+              "name": "PUT Actualizar Estado Reserva (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idReserva\": 1,\n  \"idProducto\": 1,\n  \"idBodega\": 1,\n  \"cantidad\": 1,\n  \"estado\": \"CONFIRMADA\"\n}"
+                },
+                "url": "http://localhost:5002/api/ReservasStock/1"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Reserva (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5002/api/ReservasStock/2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Pedidos.Api (Puerto 5003)",
+      "item": [
+        {
+          "name": "3.1 Tabla Cliente (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar Clientes (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/Clientes"
+              }
+            },
+            {
+              "name": "GET Cliente por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/Clientes/1"
+              }
+            },
+            {
+              "name": "POST Crear Cliente (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombres\": \"Carlos Andrade\",\n  \"cedula\": \"1722334455\",\n  \"correo\": \"carlos.andrade@correo.com\"\n}"
+                },
+                "url": "http://localhost:5003/api/Clientes"
+              }
+            },
+            {
+              "name": "PUT Actualizar Cliente (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idCliente\": 3,\n  \"nombres\": \"Carlos Alberto Andrade\",\n  \"cedula\": \"1722334455\",\n  \"correo\": \"carlos.alberto@correo.com\"\n}"
+                },
+                "url": "http://localhost:5003/api/Clientes/3"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Cliente (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5003/api/Clientes/3"
+              }
+            }
+          ]
+        },
+        {
+          "name": "3.2 Tabla Pedido (CRUD + Orquestación)",
+          "item": [
+            {
+              "name": "GET Listar Pedidos (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/Pedidos"
+              }
+            },
+            {
+              "name": "GET Pedido por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/Pedidos/1"
+              }
+            },
+            {
+              "name": "GET Pedido Inexistente (404 Not Found)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/Pedidos/999"
+              }
+            },
+            {
+              "name": "POST Crear Pedido Orquestado con Catalogo e Inventario (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idCliente\": 1,\n  \"estado\": \"PAGADO\",\n  \"detalles\": [\n    {\n      \"idProducto\": 1,\n      \"cantidad\": 1,\n      \"precioUnitario\": 750.00\n    },\n    {\n      \"idProducto\": 2,\n      \"cantidad\": 2,\n      \"precioUnitario\": 15.50\n    }\n  ]\n}"
+                },
+                "url": "http://localhost:5003/api/Pedidos"
+              }
+            },
+            {
+              "name": "POST Crear Pedido Stock Insuficiente (400 Bad Request)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idCliente\": 1,\n  \"estado\": \"PENDIENTE\",\n  \"detalles\": [\n    {\n      \"idProducto\": 1,\n      \"cantidad\": 5000,\n      \"precioUnitario\": 750.00\n    }\n  ]\n}"
+                },
+                "url": "http://localhost:5003/api/Pedidos"
+              }
+            },
+            {
+              "name": "PUT Actualizar Estado de Pedido (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idPedido\": 1,\n  \"idCliente\": 1,\n  \"estado\": \"PROCESADO\"\n}"
+                },
+                "url": "http://localhost:5003/api/Pedidos/1"
+              }
+            },
+            {
+              "name": "DELETE Eliminar Pedido (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5003/api/Pedidos/2"
+              }
+            }
+          ]
+        },
+        {
+          "name": "3.3 Tabla DetallePedido (CRUD)",
+          "item": [
+            {
+              "name": "GET Listar DetallesPedido (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/DetallesPedido"
+              }
+            },
+            {
+              "name": "GET DetallePedido por ID (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/DetallesPedido/1"
+              }
+            },
+            {
+              "name": "GET Detalles por IdPedido (200 OK)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:5003/api/DetallesPedido/pedido/1"
+              }
+            },
+            {
+              "name": "POST Crear DetallePedido (201 Created)",
+              "request": {
+                "method": "POST",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idPedido\": 1,\n  \"idProducto\": 2,\n  \"cantidad\": 3,\n  \"precioUnitario\": 15.50\n}"
+                },
+                "url": "http://localhost:5003/api/DetallesPedido"
+              }
+            },
+            {
+              "name": "PUT Actualizar DetallePedido (200 OK)",
+              "request": {
+                "method": "PUT",
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idDetalle\": 1,\n  \"idPedido\": 1,\n  \"idProducto\": 1,\n  \"cantidad\": 3,\n  \"precioUnitario\": 750.00\n}"
+                },
+                "url": "http://localhost:5003/api/DetallesPedido/1"
+              }
+            },
+            {
+              "name": "DELETE Eliminar DetallePedido (200 OK)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:5003/api/DetallesPedido/2"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

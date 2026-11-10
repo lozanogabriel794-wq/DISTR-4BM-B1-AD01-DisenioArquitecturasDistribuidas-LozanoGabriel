@@ -1,0 +1,120 @@
+### ==============================================================================
+### MICROSERVICIO 1: Catalogo.Api (Puerto 5001) - CRUD COMPLETO (3 Tablas)
+### ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. TABLA CATEGORIA
+# ------------------------------------------------------------------------------
+### GET Listar Categorias (200 OK)
+GET http://localhost:5001/api/Categorias
+
+### GET Categoria por ID (200 OK)
+GET http://localhost:5001/api/Categorias/1
+
+### POST Crear Categoria (201 Created)
+POST http://localhost:5001/api/Categorias
+Content-Type: application/json
+
+{
+  "nombre": "Monitores",
+  "descripcion": "Pantallas LED, IPS y Curvas"
+}
+
+### PUT Actualizar Categoria (200 OK)
+PUT http://localhost:5001/api/Categorias/3
+Content-Type: application/json
+
+{
+  "idCategoria": 3,
+  "nombre": "Monitores Gamer",
+  "descripcion": "Pantallas de alta tasa de refresco 144Hz+"
+}
+
+### DELETE Eliminar Categoria (200 OK)
+DELETE http://localhost:5001/api/Categorias/3
+
+# ------------------------------------------------------------------------------
+# 2. TABLA MARCA
+# ------------------------------------------------------------------------------
+### GET Listar Marcas (200 OK)
+GET http://localhost:5001/api/Marcas
+
+### GET Marca por ID (200 OK)
+GET http://localhost:5001/api/Marcas/1
+
+### POST Crear Marca (201 Created)
+POST http://localhost:5001/api/Marcas
+Content-Type: application/json
+
+{
+  "nombre": "Samsung",
+  "paisOrigen": "Corea del Sur"
+}
+
+### PUT Actualizar Marca (200 OK)
+PUT http://localhost:5001/api/Marcas/3
+Content-Type: application/json
+
+{
+  "idMarca": 3,
+  "nombre": "Samsung Electronics",
+  "paisOrigen": "Corea del Sur"
+}
+
+### DELETE Eliminar Marca (200 OK)
+DELETE http://localhost:5001/api/Marcas/3
+
+# ------------------------------------------------------------------------------
+# 3. TABLA PRODUCTO
+# ------------------------------------------------------------------------------
+### GET Listar Productos (200 OK)
+GET http://localhost:5001/api/Productos
+
+### GET Producto por ID (200 OK)
+GET http://localhost:5001/api/Productos/1
+
+### GET Producto Inexistente (404 Not Found)
+GET http://localhost:5001/api/Productos/999
+
+### POST Crear Producto Válido (201 Created)
+POST http://localhost:5001/api/Productos
+Content-Type: application/json
+
+{
+  "idCategoria": 1,
+  "idMarca": 1,
+  "nombre": "Laptop Asus TUF Gaming",
+  "sku": "ASUS-TUF-01",
+  "precio": 999.00,
+  "estado": true
+}
+
+### POST Crear Producto con Categoría Inexistente - FK FÍSICA FALLIDA (400 Bad Request)
+POST http://localhost:5001/api/Productos
+Content-Type: application/json
+
+{
+  "idCategoria": 999,
+  "idMarca": 1,
+  "nombre": "Producto Invalido",
+  "sku": "FAIL-SKU-99",
+  "precio": 100.00,
+  "estado": true
+}
+
+### PUT Actualizar Producto (200 OK)
+PUT http://localhost:5001/api/Productos/3
+Content-Type: application/json
+
+{
+  "idProducto": 3,
+  "idCategoria": 1,
+  "idMarca": 1,
+  "nombre": "Laptop Asus TUF Gaming Pro",
+  "sku": "ASUS-TUF-01",
+  "precio": 1050.00,
+  "estado": true
+}
+
+### DELETE Eliminar Producto (200 OK)
+DELETE http://localhost:5001/api/Productos/3
